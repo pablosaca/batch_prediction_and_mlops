@@ -1,0 +1,21 @@
+database:
+  database_name: xsell
+  tables_name:
+    default_info:
+      performance: xsell_performance
+      profile: xsell_profile
+    socioeconomic: xsell_socioeconomic
+    target: xsell_target
+input:
+  tables:
+    default_info:
+      performance: "raw/performance.csv"
+      profile: "raw/profile.csv"
+    socioeconomic: "raw/socioeconomic.txt"
+    target: "raw/target.csv"
+output:
+  training_date_sample: "2023-01-01"
+  tables:
+    train_data: xsell_train_model
+    val_data: xsell_val_model
+    predictions: xsell_predictions

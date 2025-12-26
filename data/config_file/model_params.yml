@@ -1,0 +1,29 @@
+data:
+  target: Response
+  categorical_feats: ["Gender", "Vehicle_Age", "Vehicle_Damage", "Quality_of_Life"]
+model:
+  training_params:
+    sample: 0.8
+    cv: 10
+    seed: 2453
+    metric: "recall"
+  model_type:
+    k_neighbors:
+      model_params:
+        n_neighbors: [3, 7] # [5, 7 , 9, 12]
+    random_forest:
+      model_params:
+        n_estimators: [10] # [25, 50, 75]
+        max_depth: [8] # [4, 6, 8]
+        min_samples_split: [5] # [3, 5]
+    decision_tree:
+      model_params:
+        max_depth: [6] # [ 4, 6, 8 ]
+    gradient_boosting:
+      model_params:
+        n_estimators: [10] # [25, 50, 75]
+        learning_rate: [0.03] # [0.15, 0.25]
+        max_depth: [6] # [4, 6, 8]
+        min_samples_split: [3] # [3, 5]
+  final_decision:
+    threshold: 0.12
