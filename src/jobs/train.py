@@ -30,7 +30,7 @@ def main():
     # se incluye el directorio donde se encuentra el fichero de configuración de la modelización
     path = base_path / "data" / "config_file" / "model_params.yml"
 
-    model_type: Literal["k_neighbors", "random_forest", "decision_tree", "gradient_boosting"] = "k_neighbors"
+    model_type: Literal["k_neighbors", "random_forest", "decision_tree", "gradient_boosting"] = "random_forest"
     model = ClassificationTrainer(config_file_path=path, model_type=model_type)
     train_df, val_df = model.get_train_val_sample(final_df)
 
