@@ -1,0 +1,59 @@
+pipeline {
+    agent {
+        node {
+            label 'MLAgent'
+            // ESTO REEMPLAZA AL CHECKOUT: obliga a Jenkins a trabajar en tu carpeta
+            customWorkspace 'C:\\Users\\p_san\\OneDrive\\Escritorio\\batch_prediction_and_mlops'
+        }
+    }
+
+    stages {
+        stage('Verificar Archivos') {
+            steps {
+                echo "Trabajando en: ${WORKSPACE}"
+                bat 'dir' // Esto confirmará que ves tus archivos .py y el requirements.txt
+            }
+        }
+
+        stage('Entorno e Instala dependencias') {
+            steps {
+                bat '''
+                @echo off
+                if not exist venv ( python -m venv venv )
+                call venv\\Scripts\\activate
+                pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Paso 1: Database (ETL)') {
+            steps {
+                bat '''
+                @echo off
+                call venv\\Scripts\\activate
+                python -m src.jobs.database
+                '''
+            }
+        }
+
+        stage('Paso 2: Entrenamiento (Train)') {
+            steps {
+                bat '''
+                @echo off
+                call venv\\Scripts\\activate
+                python -m src.jobs.train
+                '''
+            }
+        }
+
+        stage('Paso 3: Predicción (Predict)') {
+            steps {
+                bat '''
+                @echo off
+                call venv\\Scripts\\activate
+                python -m src.jobs.predict
+                '''
+            }
+        }
+    }
+}
