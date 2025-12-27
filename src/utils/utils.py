@@ -19,7 +19,8 @@ def get_global_path() -> Path:
     """
 
     # se obtiene la ruta absoluta del script actual
-    script_path = Path(__file__).resolve()
+    # script_path = Path(__file__).resolve()
     # solo queremos el directorio global
-    base_path = next(p for p in script_path.parents if p.name == "batch_prediction_and_mlops")
-    return base_path
+    # base_path = next(p for p in script_path.parents if p.name == "batch_prediction_and_mlops")
+    # return base_path
+    return Path(__file__).resolve().parent.parent.parent
